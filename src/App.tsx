@@ -1,17 +1,9 @@
 import { useEffect, useState } from "react";
 import Header from "./components/header";
 import ToDoItems from "./components/to-do-items";
-import { greet } from "./utils/greet";
 import "./App.css";
 
 function App(): JSX.Element {
-  type toDoOneItem = {
-    description: string;
-    isComplete: boolean;
-    creationDate: string;
-    dueDate: string;
-  };
-
   const [toDoState, setToDo] = useState([]);
 
   useEffect(() => {
