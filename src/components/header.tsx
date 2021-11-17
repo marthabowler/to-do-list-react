@@ -1,15 +1,4 @@
-type toDo = {
-  description: string;
-  isComplete: boolean;
-  creationDate: string;
-  dueDate: string;
-};
-
-interface propsHeader {
-  toDoList: toDo[];
-}
-
-export default function Header(props: propsHeader): JSX.Element {
+export default function Header(): JSX.Element {
   return (
     <>
       <header>
@@ -17,15 +6,14 @@ export default function Header(props: propsHeader): JSX.Element {
       </header>
       <label>What needs to be done?</label>
       <br />
-      <input
+      {/* <input
         type="text"
         id="new-todo-input"
         className="input input__lg"
         name="text"
         autoComplete="off"
       />
-      <button>Submit</button>
-      <p>{props.toDoList[0].description}</p>
+      <button>Submit</button> */}
     </>
   );
 }
