@@ -13,21 +13,20 @@ function App(): JSX.Element {
     setToDo(jsonBody);
   };
 
-  const DeleteToDo = async (id: number) => {
+  async function deleteToDo(id: number) {
     const deleteUrl = `http://localhost:4000/items/${id}`;
     await axios.delete(deleteUrl);
-    await loadData();
-  };
+  }
 
   useEffect(() => {
     loadData();
-  }, []);
+  });
 
   return (
     <>
       <Header />
       <br />
-      <ToDoItems toDoAllItems={toDoState} deleteToDo={DeleteToDo} />
+      <ToDoItems toDoAllItems={toDoState} deleteToDo={deleteToDo} />
     </>
   );
 }
