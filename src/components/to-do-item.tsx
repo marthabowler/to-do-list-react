@@ -1,24 +1,27 @@
+import { toDoOneItem } from "./toDoOneItem";
+
 interface ItemProps {
-  toDoOneItem: {
-    description: string;
-    isComplete: boolean;
-    creationDate: string;
-    dueDate: string;
-  };
+  oneItem: toDoOneItem;
+  deleteToDo: (id: number) => void;
 }
 
 export default function ToDoItem(props: ItemProps): JSX.Element {
   return (
     <>
       <div className="item">
-        <p>{props.toDoOneItem.description}</p>
-        <p>{props.toDoOneItem.dueDate}</p>
-        <p
-          className={props.toDoOneItem.isComplete ? "complete" : "notcomplete"}
-        >
-          {props.toDoOneItem.isComplete ? "Complete" : "To be completed"}
+        <p>{props.oneItem.description}</p>
+        <p>{props.oneItem.dueDate}</p>
+        <p className={props.oneItem.isComplete ? "complete" : "notcomplete"}>
+          {props.oneItem.isComplete ? "Complete" : "To be completed"}
         </p>
-        <button onClick={() => console.log("hello")}> Delete </button>
+        <button
+          onClick={() => {
+            props.deleteToDo(props.oneItem.id);
+          }}
+        >
+          {" "}
+          Delete{" "}
+        </button>
       </div>
       <br />
     </>
