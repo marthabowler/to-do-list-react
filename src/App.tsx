@@ -10,6 +10,16 @@ function App(): JSX.Element {
   const [addNewToDo, setNewToDo] = useState("");
   const [addNewDueDate, setNewDueDate] = useState("");
 
+  async function handleAddToDo() {
+    const body = {
+      description: addNewToDo,
+      isComplete: false,
+      dueDate: addNewDueDate,
+    };
+    const res = await axios.post("http://localhost:4000/items/", body);
+    console.log(res, "added successfully");
+  }
+
   const loadData = async () => {
     const resp = await fetch("http://localhost:4000/items/");
     const jsonBody = await resp.json();
@@ -18,7 +28,8 @@ function App(): JSX.Element {
 
   async function deleteToDo(id: number) {
     const deleteUrl = `http://localhost:4000/items/${id}`;
-    await axios.delete(deleteUrl);
+    const res = await axios.delete(deleteUrl);
+    console.log(res, "deleted successfully");
   }
 
   useEffect(() => {
@@ -34,6 +45,7 @@ function App(): JSX.Element {
         newTask={addNewToDo}
         setNewDueDate={setNewDueDate}
         setNewTask={setNewToDo}
+        addNewTodoFromInput={handleAddToDo}
       />
       <ToDoItems toDoAllItems={toDoState} deleteToDo={deleteToDo} />
     </>

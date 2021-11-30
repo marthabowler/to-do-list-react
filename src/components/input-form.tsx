@@ -3,6 +3,7 @@ interface InsertToDoItemProps {
   setNewTask: (input: string) => void;
   newTask: string;
   newDueDate: string;
+  addNewTodoFromInput: (input: void) => void;
 }
 export default function InsertToDoItem(
   props: InsertToDoItemProps
@@ -25,7 +26,13 @@ export default function InsertToDoItem(
             props.setNewDueDate(e.target.value);
           }}
         />
-        <button>Add task</button>
+        <button
+          onClick={() => {
+            props.addNewTodoFromInput();
+          }}
+        >
+          Add task
+        </button>
       </div>
       <br />
     </>
