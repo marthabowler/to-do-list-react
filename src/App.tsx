@@ -3,6 +3,7 @@ import Header from "./components/header";
 import ToDoItems from "./components/to-do-items";
 import "./App.css";
 import InsertToDoItem from "./components/input-form";
+import { toDoOneItem } from "./components/toDoOneItem";
 const axios = require("axios").default;
 
 function App(): JSX.Element {
@@ -32,6 +33,15 @@ function App(): JSX.Element {
     console.log(res, "deleted successfully");
   }
 
+  async function updateToDo(arg: toDoOneItem) {
+    const body = {
+      isComplete: !arg.isComplete,
+    };
+    const updateUrl = `http://localhost:4000/items/${arg.id}`;
+    const res = await axios.patch(updateUrl, body);
+    console.log(res, "updated successfully");
+  }
+
   useEffect(() => {
     loadData();
   });
@@ -47,7 +57,11 @@ function App(): JSX.Element {
         setNewTask={setNewToDo}
         addNewTodoFromInput={handleAddToDo}
       />
-      <ToDoItems toDoAllItems={toDoState} deleteToDo={deleteToDo} />
+      <ToDoItems
+        toDoAllItems={toDoState}
+        deleteToDo={deleteToDo}
+        updateToDo={updateToDo}
+      />
     </>
   );
 }
