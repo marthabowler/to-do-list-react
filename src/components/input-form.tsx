@@ -20,6 +20,7 @@ export default function InsertToDoItem(
           }}
         />
         <input
+          type="date"
           placeholder="Due Date"
           value={props.newDueDate}
           onChange={(e) => {

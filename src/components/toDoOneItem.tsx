@@ -1,7 +1,7 @@
 export type toDoOneItem = {
   id: number;
-  description: string;
-  isComplete: boolean;
-  creationDate: string;
-  dueDate: string;
+  tasks: string;
+  due_date: string;
+  creation_date: string;
+  completed: boolean;
 };

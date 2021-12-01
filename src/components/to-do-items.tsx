@@ -9,15 +9,17 @@ interface toDoItemsProps {
 
 export default function ToDoItems(props: toDoItemsProps): JSX.Element {
   return (
-    <div>
-      {props.toDoAllItems.map((item) => (
-        <ToDoItem
-          oneItem={item}
-          key={item.id}
-          deleteToDo={props.deleteToDo}
-          updateToDo={props.updateToDo}
-        />
-      ))}
-    </div>
+    <table className="table table-hover">
+      <tbody>
+        {props.toDoAllItems.map((item) => (
+          <ToDoItem
+            oneItem={item}
+            key={item.id}
+            deleteToDo={props.deleteToDo}
+            updateToDo={props.updateToDo}
+          />
+        ))}
+      </tbody>
+    </table>
   );
 }

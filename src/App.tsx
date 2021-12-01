@@ -4,47 +4,54 @@ import ToDoItems from "./components/to-do-items";
 import "./App.css";
 import InsertToDoItem from "./components/input-form";
 import { toDoOneItem } from "./components/toDoOneItem";
-const axios = require("axios").default;
+import axios from "axios";
 
 function App(): JSX.Element {
-  const [toDoState, setToDo] = useState([]);
+  const [toDoState, setToDo] = useState<toDoOneItem[]>([]);
   const [addNewToDo, setNewToDo] = useState("");
   const [addNewDueDate, setNewDueDate] = useState("");
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
 
   async function handleAddToDo() {
     const body = {
-      description: addNewToDo,
-      isComplete: false,
-      dueDate: addNewDueDate,
+      tasks: addNewToDo,
+      due_date: addNewDueDate,
     };
-    const res = await axios.post("http://localhost:4000/items/", body);
+    const res = await axios.post("http://localhost:4000/todos/", body);
     console.log(res, "added successfully");
+    loadData();
   }
 
-  const loadData = async () => {
-    const resp = await fetch("http://localhost:4000/items/");
-    const jsonBody = await resp.json();
-    setToDo(jsonBody);
-  };
-
   async function deleteToDo(id: number) {
-    const deleteUrl = `http://localhost:4000/items/${id}`;
+    const deleteUrl = `http://localhost:4000/todos/${id}`;
     const res = await axios.delete(deleteUrl);
     console.log(res, "deleted successfully");
+    loadData();
   }
 
   async function updateToDo(arg: toDoOneItem) {
     const body = {
-      isComplete: !arg.isComplete,
+      completed: !arg.completed,
     };
-    const updateUrl = `http://localhost:4000/items/${arg.id}`;
-    const res = await axios.patch(updateUrl, body);
+    const updateUrl = `http://localhost:4000/todos/${arg.id}`;
+    const res = await axios.put(updateUrl, body);
     console.log(res, "updated successfully");
   }
 
+  const loadData = async () => {
+    const resp = await fetch("http://localhost:4000/todos/");
+    const jsonBody = await resp.json();
+    const data = jsonBody.data;
+    setToDo(data);
+    console.log(jsonBody.data);
+  };
+
   useEffect(() => {
-    loadData();
-  });
+    if (isFirstLoad) {
+      loadData();
+      setIsFirstLoad(false);
+    }
+  }, [isFirstLoad]);
 
   return (
     <>

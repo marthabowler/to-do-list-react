@@ -8,18 +8,18 @@ interface ItemProps {
 
 export default function ToDoItem(props: ItemProps): JSX.Element {
   return (
-    <>
-      <div className="item">
-        <p>{props.oneItem.description}</p>
-        <p>{props.oneItem.dueDate}</p>
-        <p
-          className={props.oneItem.isComplete ? "complete" : "notcomplete"}
-          onClick={() => {
-            props.updateToDo(props.oneItem);
-          }}
-        >
-          {props.oneItem.isComplete ? "Complete" : "To be completed"}
-        </p>
+    <tr>
+      <td>{props.oneItem.tasks}</td>
+      <td>{props.oneItem.due_date}</td>
+      <td>
+        <input
+          className="form-check-input"
+          type="checkbox"
+          checked={props.oneItem.completed}
+          id="flexCheckDefault"
+        />
+      </td>
+      <td>
         <button
           onClick={() => {
             props.deleteToDo(props.oneItem.id);
@@ -28,8 +28,7 @@ export default function ToDoItem(props: ItemProps): JSX.Element {
           {" "}
           Delete{" "}
         </button>
-      </div>
-      <br />
-    </>
+      </td>
+    </tr>
   );
 }
