@@ -14,6 +14,7 @@ function App(): JSX.Element {
   const [editDueDate, setEditDueDate] = useState("");
 
   const APIURL = `https://morning-coast-93999.herokuapp.com/todos/`;
+
   async function updateToDoStatus(arg: toDoOneItem) {
     const body = {
       completed: !arg.completed,

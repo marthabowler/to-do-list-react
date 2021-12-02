@@ -88,8 +88,9 @@ export default function ToDoItem(props: ItemProps): JSX.Element {
             Edit
           </button>
         </td>
-        <td>{props.oneItem.tasks}</td>
-        <td>{props.oneItem.due_date}</td>
+        <td>Task: {props.oneItem.tasks}</td>
+        <td>Due Date: {props.oneItem.due_date.slice(0, 10)}</td>
+        {props.oneItem.completed ? <td>done</td> : <td>pending</td>}
         <td>
           <input
             className="form-check-input"
