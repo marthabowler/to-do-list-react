@@ -31,6 +31,8 @@ function App(): JSX.Element {
     const res = await axios.post(`${APIURL}`, body);
     console.log(res, "added successfully");
     loadData();
+    setNewToDo("");
+    setNewDueDate("");
   }
 
   async function deleteToDo(id: number) {
@@ -49,6 +51,8 @@ function App(): JSX.Element {
     const response = await axios.put(`${APIURL}${id}`, body);
     console.log(response);
     loadData();
+    setEditDueDate("");
+    setEditToDo("");
   }
 
   const loadData = async () => {
