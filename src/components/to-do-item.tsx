@@ -4,7 +4,12 @@ import { toDoOneItem } from "./toDoOneItem";
 interface ItemProps {
   oneItem: toDoOneItem;
   deleteToDo: (id: number) => void;
-  updateToDo: (arg: toDoOneItem) => void;
+  updateToDo: (id: number) => void;
+  setEditDueDate: (input: string) => void;
+  setEditTask: (input: string) => void;
+  editTask: string;
+  editDueDate: string;
+  updateToDoStatus: (arg: toDoOneItem) => void;
 }
 
 export default function ToDoItem(props: ItemProps): JSX.Element {
@@ -12,15 +17,6 @@ export default function ToDoItem(props: ItemProps): JSX.Element {
     <>
       <Fragment>
         {/* Button trigger modal */}
-        <button
-          type="button"
-          className="btn btn-primary"
-          data-bs-toggle="modal"
-          data-bs-target={`#todo${props.oneItem.id}`}
-        >
-          Edit
-        </button>
-
         {/* Modal */}
         <div
           className="modal fade"
@@ -43,10 +39,29 @@ export default function ToDoItem(props: ItemProps): JSX.Element {
                 ></button>
               </div>
               <div className="modal-body">
-                <input type="text" className="form-control" />
+                <input
+                  type="text"
+                  placeholder="Change Task"
+                  className="form-control"
+                  value={props.editTask}
+                  onChange={(e) => props.setEditTask(e.target.value)}
+                />
+                <input
+                  type="date"
+                  placeholder="Change Due Date"
+                  className="form-control"
+                  value={props.editDueDate}
+                  onChange={(e) => props.setEditDueDate(e.target.value)}
+                />
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-primary">
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={() => {
+                    props.updateToDo(props.oneItem.id);
+                  }}
+                >
                   Save changes
                 </button>
                 <button
@@ -62,14 +77,29 @@ export default function ToDoItem(props: ItemProps): JSX.Element {
         </div>
       </Fragment>
       <tr>
+        <td>
+          {" "}
+          <button
+            type="button"
+            className="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target={`#todo${props.oneItem.id}`}
+          >
+            Edit
+          </button>
+        </td>
         <td>{props.oneItem.tasks}</td>
         <td>{props.oneItem.due_date}</td>
         <td>
           <input
             className="form-check-input"
             type="checkbox"
+            value=""
             checked={props.oneItem.completed}
             id="flexCheckDefault"
+            onChange={() => {
+              props.updateToDoStatus(props.oneItem);
+            }}
           />
         </td>
         <td>

@@ -4,7 +4,12 @@ import { toDoOneItem } from "./toDoOneItem";
 interface toDoItemsProps {
   toDoAllItems: toDoOneItem[];
   deleteToDo: (id: number) => void;
-  updateToDo: (arg: toDoOneItem) => void;
+  updateToDo: (id: number) => void;
+  setEditDueDate: (input: string) => void;
+  setEditTask: (input: string) => void;
+  editTask: string;
+  editDueDate: string;
+  updateToDoStatus: (arg: toDoOneItem) => void;
 }
 
 export default function ToDoItems(props: toDoItemsProps): JSX.Element {
@@ -17,6 +22,11 @@ export default function ToDoItems(props: toDoItemsProps): JSX.Element {
             key={item.id}
             deleteToDo={props.deleteToDo}
             updateToDo={props.updateToDo}
+            setEditDueDate={props.setEditDueDate}
+            setEditTask={props.setEditTask}
+            editTask={props.editTask}
+            editDueDate={props.editDueDate}
+            updateToDoStatus={props.updateToDoStatus}
           />
         ))}
       </tbody>

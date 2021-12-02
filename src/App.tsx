@@ -10,36 +10,49 @@ function App(): JSX.Element {
   const [toDoState, setToDo] = useState<toDoOneItem[]>([]);
   const [addNewToDo, setNewToDo] = useState("");
   const [addNewDueDate, setNewDueDate] = useState("");
-  const [isFirstLoad, setIsFirstLoad] = useState(true);
+  const [editToDo, setEditToDo] = useState("");
+  const [editDueDate, setEditDueDate] = useState("");
+
+  const APIURL = `https://morning-coast-93999.herokuapp.com/todos/`;
+  async function updateToDoStatus(arg: toDoOneItem) {
+    const body = {
+      completed: !arg.completed,
+    };
+    const res = await axios.put(`${APIURL}${arg.id}/complete`, body);
+    console.log(res, "status changed successfully");
+    loadData();
+  }
 
   async function handleAddToDo() {
     const body = {
       tasks: addNewToDo,
       due_date: addNewDueDate,
     };
-    const res = await axios.post("http://localhost:4000/todos/", body);
+    const res = await axios.post(`${APIURL}`, body);
     console.log(res, "added successfully");
     loadData();
   }
 
   async function deleteToDo(id: number) {
-    const deleteUrl = `http://localhost:4000/todos/${id}`;
+    const deleteUrl = `${APIURL}${id}/`;
     const res = await axios.delete(deleteUrl);
     console.log(res, "deleted successfully");
     loadData();
   }
 
-  async function updateToDo(arg: toDoOneItem) {
+  async function updateToDo(id: number) {
     const body = {
-      completed: !arg.completed,
+      tasks: editToDo,
+      due_date: editDueDate,
     };
-    const updateUrl = `http://localhost:4000/todos/${arg.id}`;
-    const res = await axios.put(updateUrl, body);
-    console.log(res, "updated successfully");
+
+    const response = await axios.put(`${APIURL}${id}`, body);
+    console.log(response);
+    loadData();
   }
 
   const loadData = async () => {
-    const resp = await fetch("http://localhost:4000/todos/");
+    const resp = await fetch(`${APIURL}`);
     const jsonBody = await resp.json();
     const data = jsonBody.data;
     setToDo(data);
@@ -47,11 +60,8 @@ function App(): JSX.Element {
   };
 
   useEffect(() => {
-    if (isFirstLoad) {
-      loadData();
-      setIsFirstLoad(false);
-    }
-  }, [isFirstLoad]);
+    loadData();
+  });
 
   return (
     <>
@@ -68,6 +78,11 @@ function App(): JSX.Element {
         toDoAllItems={toDoState}
         deleteToDo={deleteToDo}
         updateToDo={updateToDo}
+        editTask={editToDo}
+        setEditDueDate={setEditDueDate}
+        setEditTask={setEditToDo}
+        editDueDate={editDueDate}
+        updateToDoStatus={updateToDoStatus}
       />
     </>
   );
