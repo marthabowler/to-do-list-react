@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import Header from "./components/header";
 import ToDoItems from "./components/to-do-items";
 import "./App.css";
@@ -72,27 +72,29 @@ function App(): JSX.Element {
   });
 
   return (
-    <>
-      <Header />
-      <br />
-      <InsertToDoItem
-        newDueDate={addNewDueDate}
-        newTask={addNewToDo}
-        setNewDueDate={setNewDueDate}
-        setNewTask={setNewToDo}
-        addNewTodoFromInput={handleAddToDo}
-      />
-      <ToDoItems
-        toDoAllItems={toDoState}
-        deleteToDo={deleteToDo}
-        updateToDo={updateToDo}
-        editTask={editToDo}
-        setEditDueDate={setEditDueDate}
-        setEditTask={setEditToDo}
-        editDueDate={editDueDate}
-        updateToDoStatus={updateToDoStatus}
-      />
-    </>
+    <Fragment>
+      <div className="container">
+        <Header />
+        <br />
+        <InsertToDoItem
+          newDueDate={addNewDueDate}
+          newTask={addNewToDo}
+          setNewDueDate={setNewDueDate}
+          setNewTask={setNewToDo}
+          addNewTodoFromInput={handleAddToDo}
+        />
+        <ToDoItems
+          toDoAllItems={toDoState}
+          deleteToDo={deleteToDo}
+          updateToDo={updateToDo}
+          editTask={editToDo}
+          setEditDueDate={setEditDueDate}
+          setEditTask={setEditToDo}
+          editDueDate={editDueDate}
+          updateToDoStatus={updateToDoStatus}
+        />
+      </div>
+    </Fragment>
   );
 }
 

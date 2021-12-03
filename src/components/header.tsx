@@ -2,9 +2,10 @@ export default function Header(): JSX.Element {
   return (
     <>
       <header>
-        <h1>My to do list</h1>
+        <h1 className="text-center mt-5">
+          <strong>My to do list</strong>
+        </h1>
       </header>
-      <label>What needs to be done?</label>
       <br />
     </>
   );

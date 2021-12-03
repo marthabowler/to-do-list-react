@@ -14,7 +14,7 @@ interface toDoItemsProps {
 
 export default function ToDoItems(props: toDoItemsProps): JSX.Element {
   return (
-    <table className="table table-hover">
+    <table className="table table-hover mt-5 text-center">
       <tbody>
         {props.toDoAllItems.map((item) => (
           <ToDoItem
