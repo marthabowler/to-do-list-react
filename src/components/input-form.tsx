@@ -28,6 +28,8 @@ export default function InsertToDoItem(
           }}
         />
         <button
+          type="button"
+          className="btn btn-info"
           onClick={() => {
             props.addNewTodoFromInput();
           }}

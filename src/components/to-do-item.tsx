@@ -61,6 +61,7 @@ export default function ToDoItem(props: ItemProps): JSX.Element {
                   onClick={() => {
                     props.updateToDo(props.oneItem.id);
                   }}
+                  data-bs-dismiss="modal"
                 >
                   Save changes
                 </button>
@@ -81,15 +82,22 @@ export default function ToDoItem(props: ItemProps): JSX.Element {
           {" "}
           <button
             type="button"
-            className="btn btn-primary"
+            className="btn btn-warning"
             data-bs-toggle="modal"
             data-bs-target={`#todo${props.oneItem.id}`}
           >
             Edit
           </button>
         </td>
-        <td>Task: {props.oneItem.tasks}</td>
-        <td>Due Date: {props.oneItem.due_date.slice(0, 10)}</td>
+        <td>
+          <strong>Task</strong> <br />
+          {props.oneItem.tasks}
+        </td>
+        <td>
+          <strong>Due Date</strong>
+          <br />
+          {props.oneItem.due_date.slice(0, 10)}
+        </td>
         {props.oneItem.completed ? <td>done</td> : <td>pending</td>}
         <td>
           <input
@@ -105,6 +113,8 @@ export default function ToDoItem(props: ItemProps): JSX.Element {
         </td>
         <td>
           <button
+            type="button"
+            className="btn btn-danger"
             onClick={() => {
               props.deleteToDo(props.oneItem.id);
             }}
