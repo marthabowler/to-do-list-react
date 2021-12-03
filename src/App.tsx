@@ -15,7 +15,7 @@ function App(): JSX.Element {
 
   const APIURL =
     process.env.NODE_ENV === "production"
-      ? process.env.DATABASE_URL
+      ? "https://morning-coast-93999.herokuapp.com/todos/"
       : "http://localhost:5000/todos/";
 
   async function updateToDoStatus(arg: toDoOneItem) {
