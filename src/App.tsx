@@ -13,7 +13,10 @@ function App(): JSX.Element {
   const [editToDo, setEditToDo] = useState("");
   const [editDueDate, setEditDueDate] = useState("");
 
-  const APIURL = `https://morning-coast-93999.herokuapp.com/todos/`;
+  const APIURL =
+    process.env.NODE_ENV === "production"
+      ? process.env.DATABASE_URL
+      : "http://localhost:5000/todos/";
 
   async function updateToDoStatus(arg: toDoOneItem) {
     const body = {
@@ -37,7 +40,7 @@ function App(): JSX.Element {
   }
 
   async function deleteToDo(id: number) {
-    const deleteUrl = `${APIURL}${id}/`;
+    const deleteUrl = `${APIURL}${id}`;
     const res = await axios.delete(deleteUrl);
     console.log(res, "deleted successfully");
     loadData();
